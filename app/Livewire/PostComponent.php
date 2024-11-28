@@ -17,17 +17,10 @@ class PostComponent extends Component
 
     public function render()
     {
-        $this->posts = Post::all();
+        $this->posts = Post::orderBy('id','desc')->get();
         return view('livewire.post-component');
     }
 
-    public function resetFields()
-    {
-        $this->title = '';
-        $this->content = '';
-        $this->post_id = null;
-        $this->isUpdate = false;
-    }
 
     public function store()
     {
@@ -37,7 +30,7 @@ class PostComponent extends Component
             'content' => $this->content,
         ]);
         session()->flash('message', 'Post Created Successfully.');
-        $this->resetFields();
+        $this->reset(['title','content','isUpdate']);
     }
 
     public function edit($id)
@@ -58,7 +51,7 @@ class PostComponent extends Component
             'content' => $this->content,
         ]);
         session()->flash('message', 'Post Updated Successfully.');
-        $this->resetFields();
+        $this->reset(['title','content','post_id','isUpdate']);
     }
 
     public function delete($id)
