@@ -16,10 +16,10 @@
             <span>{{ $message }}</span>
         @enderror
 
-        <button type="submit" class="btn btn-primary mt-2">{{ $isUpdate ? 'Update' : 'Create' }}</button>
+        <button type="submit" class="btn btn-primary mt-4">{{ $isUpdate ? 'Update' : 'Create' }}</button>
     </form>
 
-    <ul>
+    <ul class="mt-4">
         @foreach ($posts as $post)
             <li>
                 <h2>{{ $post->title }}</h2>
