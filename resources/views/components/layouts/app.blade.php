@@ -15,11 +15,12 @@
         <div class="row">
             <div class="col-12">
                 <ul>
-                    <li><a href="home" wire:navigate>Home Sahifa</a></li>
+                    <li><a href="/" wire:navigate>Post</a></li>
+                    {{-- <li><a href="home" wire:navigate>Home Sahifa</a></li>
                     <li><a href="calc" wire:navigate>Calculator Sahifa</a></li>
                     <li><a href="student" wire:navigate>Student Sahifa</a></li>
                     <li><a href="category" wire:navigate>Category Sahifa</a></li>
-                    <li><a href="car" wire:navigate>Car Sahifa</a></li>
+                    <li><a href="car" wire:navigate>Car Sahifa</a></li> --}}
                 </ul>
             </div>
         </div>
