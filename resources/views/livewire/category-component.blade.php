@@ -27,7 +27,8 @@
                         #
                     </td>
                     <td>
-                        <input type="text" wire:keydown="search" wire:model="searchName" class="form-control" placeholder="Search...">
+                        <input type="text" wire:keydown="search" wire:model="searchName" style="width:100%;"
+                            class="form-control" placeholder="Search...">
                     </td>
                     <td>
                     </td>
@@ -39,10 +40,19 @@
                                 {{ $category->id }}
                             </td>
                             <td>
-                                <input type="text" wire:model="editName" class="form-control" id="editname">
+                                <form wire:submit.prevent="update">
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <input type="text" wire:model="editName" class="form-control"
+                                                id="editname">
+                                        </div>
+                                        <div class="col-2">
+                                            <button type="submit" class="btn btn-primary">Update</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </td>
                             <td>
-                                <button wire:click="update" class="btn btn-primary">Update</button>
                             </td>
                         </tr>
                     @else
@@ -61,5 +71,4 @@
             </tbody>
         </table>
     @endif
-
 </div>

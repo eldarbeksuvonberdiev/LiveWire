@@ -10,17 +10,21 @@ class CategoryComponent extends Component
 
     public $categories, $createForm = false, $name, $editForm = false, $editName, $searchName;
 
+    public function mount()
+    {
+        $this->all();
+    }
+
     public function render()
     {
-        $this->categories = Category::all();
         return view('livewire.category-component');
     }
 
-    // public function all()
-    // {
-    //     $this->categories = Category::all();
-    //     return $this->categories;
-    // }
+    public function all()
+    {
+        $this->categories = Category::all();
+        return $this->categories;
+    }
 
     public function changeCreateForm()
     {
@@ -33,11 +37,13 @@ class CategoryComponent extends Component
             Category::create(['name' => $this->name]);
         }
         $this->reset(['name', 'createForm']);
+        $this->all();
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
+        $this->all();
     }
 
     public function edit(Category $category)
@@ -53,11 +59,13 @@ class CategoryComponent extends Component
         $category->update([
             'name' => $this->editName
         ]);
+        $this->all();
         $this->reset(['editForm', 'editName']);
     }
 
     public function search()
-    {  
-        $this->categories = Category::where("name","LIKE","{$this->searchName}%")->get();
+    {
+        // dd($this->searchName);
+        $this->categories = Category::where("name", "LIKE", "%{$this->searchName}%")->get();
     }
 }
