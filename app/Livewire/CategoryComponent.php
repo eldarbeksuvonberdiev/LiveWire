@@ -66,6 +66,6 @@ class CategoryComponent extends Component
     public function search()
     {
         // dd($this->searchName);
-        $this->categories = Category::where("name", "LIKE", "%{$this->searchName}%")->get();
+        $this->categories = Category::where("name", "LIKE", "{$this->searchName}%")->get();
     }
 }

@@ -2,21 +2,23 @@
 
 namespace App\Livewire;
 
+use App\Models\Category;
 use App\Models\Post;
 use Livewire\Component;
 
 class PostComponent extends Component
 {
-    public $posts, $title, $content, $post_id;
+    public $posts, $title, $content, $post_id,$category,$categories;
     public $isUpdate = false;
 
-    protected $rules = [
-        'title' => 'required',
-        'content' => 'required',
-    ];
+    // protected $rules = [
+    //     'title' => 'required',
+    //     'content' => 'required',
+    // ];
 
     public function render()
     {
+        $this->categories = Category::all();
         $this->posts = Post::orderBy('id','desc')->get();
         return view('livewire.post-component');
     }
@@ -24,13 +26,14 @@ class PostComponent extends Component
 
     public function store()
     {
-        $this->validate();
+        // $this->validate();
         Post::create([
+            'category_id' => $this->category,
             'title' => $this->title,
             'content' => $this->content,
         ]);
         session()->flash('message', 'Post Created Successfully.');
-        $this->reset(['title','content','isUpdate']);
+        $this->reset(['category','title','content','isUpdate']);
     }
 
     public function edit($id)
@@ -44,7 +47,7 @@ class PostComponent extends Component
 
     public function update()
     {
-        $this->validate();
+        // $this->validate();
         $post = Post::find($this->post_id);
         $post->update([
             'title' => $this->title,

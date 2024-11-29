@@ -5,7 +5,14 @@
         <div class="text-danger"><strong>{{ session('message') }}</strong></div>
     @endif
 
-    <form wire:submit.prevent="{{ $isUpdate ? 'update' : 'store' }}">
+    <form wire:submit.prevent="store">
+        <mb-3>
+            <select class="form-select" wire:model="category" aria-label="Default select example">
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
+        </mb-3>
         <input type="text" class="form-control mt-2" wire:model="title" placeholder="Title">
         @error('title')
             <span>{{ $message }}</span>
@@ -16,18 +23,7 @@
             <span>{{ $message }}</span>
         @enderror
 
-        <button type="submit" class="btn btn-primary mt-4">{{ $isUpdate ? 'Update' : 'Create' }}</button>
+        <button type="submit" class="btn btn-primary mt-4">Create</button>
     </form>
-
-    <ul class="mt-4">
-        @foreach ($posts as $post)
-            <li>
-                <h2>{{ $post->title }}</h2>
-                <p>{{ $post->content }}</p>
-                <button wire:click="edit({{ $post->id }})" class="btn btn-primary">Edit</button>
-                <button wire:click="delete({{ $post->id }})" class="btn btn-primary">Delete</button>
-            </li>
-        @endforeach
-    </ul>
 
 </div>
