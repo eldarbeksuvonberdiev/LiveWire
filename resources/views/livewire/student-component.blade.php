@@ -51,27 +51,26 @@
                 </tr>
                 <tr>
                     <th>
-                        <input type="number" wire:model="searchId" placeholder="Search by id"
+                        #
+                    </th>
+                    <th>
+                        <input type="text" wire:model="searchFio" class="form-control" placeholder="Search by Full Name"
                             wire:keydown="searchColumns">
                     </th>
                     <th>
-                        <input type="text" wire:model="searchFio" placeholder="Search by Full Name"
+                        <input type="text" wire:model="searchAddress" class="form-control" placeholder="Search by Address"
                             wire:keydown="searchColumns">
                     </th>
                     <th>
-                        <input type="text" wire:model="searchAddress" placeholder="Search by Address"
+                        <input type="number" wire:model="searchAge" class="form-control" placeholder="Search by Age"
                             wire:keydown="searchColumns">
                     </th>
                     <th>
-                        <input type="number" wire:model="searchAge" placeholder="Search by Age"
+                        <input type="text" wire:model="searchField" class="form-control" placeholder="Search by Field"
                             wire:keydown="searchColumns">
                     </th>
                     <th>
-                        <input type="text" wire:model="searchField" placeholder="Search by Field"
-                            wire:keydown="searchColumns">
-                    </th>
-                    <th>
-                        <input type="number" wire:model="searchCourse" placeholder="Search by Course"
+                        <input type="number" wire:model="searchCourse" class="form-control" placeholder="Search by Course"
                             wire:keydown="searchColumns">
                     </th>
                     <th>Action</th>

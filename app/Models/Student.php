@@ -11,6 +11,7 @@ class Student extends Model
         'age',
         'address',
         'field',
-        'course'
+        'course',
+        'is_active'
     ];
 }

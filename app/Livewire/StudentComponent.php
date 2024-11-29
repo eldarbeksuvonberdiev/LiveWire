@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use App\Models\Student;
-use LegacyTests\Browser\SyncHistory\Step;
 use Livewire\Component;
 
 class StudentComponent extends Component
@@ -14,9 +13,10 @@ class StudentComponent extends Component
     public $full_name, $address, $age, $field, $course;
     public $searchId, $searchFio, $searchAddress, $searchAge, $searchField, $searchCourse;
 
-    // public function mount() {
-    //     $this->all();
-    // }
+    public function mount()
+    {
+        $this->all();
+    }
 
     public function all()
     {
@@ -57,8 +57,7 @@ class StudentComponent extends Component
 
     public function searchColumns()
     {
-        $this->students = Student::where('id', 'LIKE',"{$this->searchId}%")
-            ->where('full_name', 'LIKE', "{$this->searchFio}%")
+        $this->students = Student::where('full_name', 'LIKE', "{$this->searchFio}%")
             ->where('address', 'LIKE', "{$this->searchAddress}%")
             ->where('age', 'LIKE', "{$this->searchAge}%")
             ->where('field', 'LIKE', "{$this->searchField}%")
@@ -66,9 +65,10 @@ class StudentComponent extends Component
             ->get();
     }
 
-    public function changeActiveness(Student $student){
+    public function changeActiveness(Student $student)
+    {
         $student->update([
-            'is_active' => !($student->is_active)
+            'is_active' => $student->is_active ? 0 : 1
         ]);
     }
 }
