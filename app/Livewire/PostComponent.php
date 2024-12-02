@@ -5,13 +5,9 @@ namespace App\Livewire;
 use App\Models\Category;
 use App\Models\Post;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class PostComponent extends Component
-{   
-    use WithPagination;
-
-
+{
     public $posts, $title, $content, $post_id, $category, $categories, $createForm=false,$searchTitle,$searchContent,$editForm=false,$editTitle,$editContent,$editCategory;
     public $isUpdate = false;
 
@@ -32,7 +28,7 @@ class PostComponent extends Component
 
     public function all()
     {
-        $this->posts = Post::paginate(10);
+        $this->posts = Post::orderBy('id', 'desc')->get();
         return $this->posts;
     }
 

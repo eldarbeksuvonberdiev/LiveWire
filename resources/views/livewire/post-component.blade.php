@@ -101,7 +101,6 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $posts->links() }}
     @endif
 
 </div>
