@@ -5,61 +5,81 @@ namespace App\Livewire;
 use App\Models\Category;
 use App\Models\Post;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class PostComponent extends Component
-{
-    public $posts, $title, $content, $post_id,$category,$categories;
+{   
+    use WithPagination;
+
+
+    public $posts, $title, $content, $post_id, $category, $categories, $createForm=false,$searchTitle,$searchContent,$editForm=false,$editTitle,$editContent,$editCategory;
     public $isUpdate = false;
 
-    // protected $rules = [
-    //     'title' => 'required',
-    //     'content' => 'required',
-    // ];
+    public function mount(){
+        $this->all();
+    }
 
     public function render()
     {
         $this->categories = Category::all();
-        $this->posts = Post::orderBy('id','desc')->get();
         return view('livewire.post-component');
     }
 
 
+    public function changeCreate() {
+        $this->createForm=!$this->createForm;
+    }
+
+    public function all()
+    {
+        $this->posts = Post::paginate(10);
+        return $this->posts;
+    }
+
     public function store()
     {
-        // $this->validate();
         Post::create([
             'category_id' => $this->category,
             'title' => $this->title,
             'content' => $this->content,
         ]);
         session()->flash('message', 'Post Created Successfully.');
-        $this->reset(['category','title','content','isUpdate']);
+        $this->reset(['category', 'title', 'content', 'isUpdate','createForm']);
+        $this->all();
     }
-
-    public function edit($id)
+    
+    public function edit(Post $post)
     {
-        $post = Post::findOrFail($id);
-        $this->post_id = $post->id;
-        $this->title = $post->title;
-        $this->content = $post->content;
-        $this->isUpdate = true;
+        $this->editForm = $post->id;
+        $this->editCategory = $post->category_id;
+        $this->editTitle = $post->title;
+        $this->editContent = $post->content;
+        $this->all();
+        
     }
-
-    public function update()
+    
+    public function update(Post $post)
     {
-        // $this->validate();
-        $post = Post::find($this->post_id);
         $post->update([
-            'title' => $this->title,
-            'content' => $this->content,
+            'category_id' =>$this->editCategory,
+            'title' => $this->editTitle,
+            'content' => $this->editContent
         ]);
         session()->flash('message', 'Post Updated Successfully.');
-        $this->reset(['title','content','post_id','isUpdate']);
+        $this->reset(['editTitle', 'editContent', 'editCategory', 'editForm']);
+        $this->all();
+    }
+    
+    public function delete(Post $post)
+    {
+        $post->delete();
+        session()->flash('message', 'Post Deleted Successfully.');
+        $this->all();
     }
 
-    public function delete($id)
-    {
-        Post::find($id)->delete();
-        session()->flash('message', 'Post Deleted Successfully.');
+    public function search(){
+        $this->posts = Post::where("title","LIKE","{$this->searchTitle}%")
+        ->where("content","LIKE","{$this->searchContent}%")
+        ->get();
     }
 }
