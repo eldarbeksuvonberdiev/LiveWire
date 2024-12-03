@@ -8,6 +8,7 @@ use App\Livewire\GroupComponent;
 use App\Livewire\HomeComponent;
 use App\Livewire\PostComponent;
 use App\Livewire\TaskComponent;
+use App\Livewire\UserPosts;
 // use App\Livewire\StudentComponent;
 use Illuminate\Support\Facades\Route;
 
@@ -17,9 +18,10 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/',PostComponent::class);
-Route::get('/group',GroupComponent::class);
-Route::get('/task',TaskComponent::class);
 Route::get('/category',CategoryComponent::class);
+Route::get('/user-post',UserPosts::class);
+// Route::get('/group',GroupComponent::class);
+// Route::get('/task',TaskComponent::class);
 // Route::get('student',StudentComponent::class);
 // Route::get('home',HomeComponent::class);
 // Route::get('calc',CalcComponent::class);

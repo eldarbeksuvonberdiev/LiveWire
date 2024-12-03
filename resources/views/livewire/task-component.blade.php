@@ -4,13 +4,13 @@
     <div class="container text-center">
         <div class="row align-items-start">
             @foreach ($tasks as $status => $taskGroup)
-                <div class="col-3">
+                <div class="col-3" wire:sortable="#" style="background-color: blueviolet;border-radius:20px;">
                     <h2>Status {{ $status }} Tasks</h2>
-                    <ul>
-                        @foreach ($taskGroup as $task)
+                    @foreach ($taskGroup as $task)
+                        <ul draggable="true" wire:sortable.item="{{ $task['id'] }}">
                             <li>{{ $task['name'] }}</li>
-                        @endforeach
-                    </ul>
+                        </ul>
+                    @endforeach
                 </div>
             @endforeach
         </div>

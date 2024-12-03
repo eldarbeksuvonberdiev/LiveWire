@@ -9,6 +9,7 @@
         <form wire:submit.prevent="store">
             <mb-3>
                 <select class="form-select" wire:model="category" aria-label="Default select example">
+                    <option value=""></option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
