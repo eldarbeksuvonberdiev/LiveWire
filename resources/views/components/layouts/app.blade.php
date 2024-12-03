@@ -19,6 +19,7 @@
                     <li><a href="/category" wire:navigate>Category</a></li>
                     <li><a href="/" wire:navigate>Post</a></li>
                     <li><a href="/group" wire:navigate>Group</a></li>
+                    <li><a href="/task" wire:navigate>Task</a></li>
                     {{-- <li><a href="student" wire:navigate>Student Sahifa</a></li> --}}
                     {{-- <li><a href="home" wire:navigate>Home Sahifa</a></li>
                     <li><a href="calc" wire:navigate>Calculator Sahifa</a></li>
