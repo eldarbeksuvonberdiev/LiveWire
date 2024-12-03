@@ -18,6 +18,7 @@
                 <ul>
                     <li><a href="/category" wire:navigate>Category</a></li>
                     <li><a href="/" wire:navigate>Post</a></li>
+                    <li><a href="/group" wire:navigate>Group</a></li>
                     {{-- <li><a href="student" wire:navigate>Student Sahifa</a></li> --}}
                     {{-- <li><a href="home" wire:navigate>Home Sahifa</a></li>
                     <li><a href="calc" wire:navigate>Calculator Sahifa</a></li>
@@ -30,6 +31,7 @@
             {{ $slot }}
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/gh/livewire/sortable@v1.x.x/dist/livewire-sortable.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
