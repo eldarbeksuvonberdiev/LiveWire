@@ -10,8 +10,9 @@ class GroupComponent extends Component
 
     public $groups;
 
-    public function mount(){
-        $this->groups = Group::orderBY('order','asc')->get();
+    public function mount()
+    {
+        $this->groups = Group::orderBY('order', 'asc')->get();
     }
 
     public function render()
@@ -19,7 +20,11 @@ class GroupComponent extends Component
         return view('livewire.group-component');
     }
 
-    public function updateGroup($groupId){
-        dd($groupId);
+    public function updateGroup($groupIds)
+    {
+        foreach ($groupIds as $groupId) {
+            Group::where('id',$groupId['value'])->update(['order' => $groupId['order']]);
+        }
+        $this->groups = Group::orderBY('order', 'asc')->get();
     }
 }
