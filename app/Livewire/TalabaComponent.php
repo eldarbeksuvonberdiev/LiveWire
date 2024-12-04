@@ -8,9 +8,9 @@ use Livewire\Component;
 
 class TalabaComponent extends Component
 {
-    public $date, $students;
+    public $date, $students,$talabaId,$attendanceDate;
 
-    public function mount() 
+    public function mount()
     {
         $this->date = Carbon::now();
         $this->students = Talaba::all();
@@ -20,10 +20,10 @@ class TalabaComponent extends Component
     {
         $daysInMonth = $this->date->daysInMonth;
         $days = [];
-        for ($i=1; $i <= $daysInMonth; $i++) { 
-            $days[] = Carbon::create($this->date->year,$this->date->month,$i);
+        for ($i = 1; $i <= $daysInMonth; $i++) {
+            $days[] = Carbon::create($this->date->year, $this->date->month, $i);
         }
-        return view('livewire.talaba-component',['days' =>$days]);
+        return view('livewire.talaba-component', ['days' => $days]);
     }
 
     public function changeDate($date)
@@ -31,4 +31,18 @@ class TalabaComponent extends Component
         $this->date = Carbon::parse($date);
     }
 
+    public function inputView($id,$date) 
+    {
+        $this->talabaId = $id;
+        $this->attendanceDate = $date;
+    }
+
+    public function createAttendance(Talaba $talaba,$date,$value)
+    {
+        $talaba->attendances()->updateOrCreate([
+            'date' => Carbon::parse($date),
+            'value' => $value
+        ]);
+        $this->reset(['talabaId','attendanceDate']);
+    }
 }
