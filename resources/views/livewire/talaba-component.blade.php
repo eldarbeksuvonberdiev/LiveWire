@@ -21,7 +21,21 @@
                                 <th>{{ $student->id }}</th>
                                 <td>{{ $student->name }}</td>
                                 @foreach ($days as $day)
-                                    <td></td>
+                                    @php
+                                        $userAttendance = $student->checks($day->format('Y-m-d'));
+                                    @endphp
+                                    <td wire:click="inputView('{{ $student->id }}','{{ $day->format('Y-m-d') }}')">
+                                        @if ($talabaId == $student->id && $attendanceDate == $day->format('Y-m-d'))
+                                            <input type="text" style="width: 30px;" autofocus
+                                                value="{{ $userAttendance->value ?? '' }}"
+                                                wire:keydown.enter="createAttendance('{{ $student->id }}','{{ $day->format('Y-m-d') }}',$event.target.value)">
+                                        @else
+                                            @if ($userAttendance)
+                                                <span
+                                                    class="text-{{ $userAttendance->value == '+' ? 'primary' : 'danger' }}">{{ $userAttendance->value }}</span>
+                                            @endif
+                                        @endif
+                                    </td>
                                 @endforeach
                             </tr>
                         @endforeach
