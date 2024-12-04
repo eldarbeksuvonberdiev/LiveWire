@@ -77,12 +77,12 @@
                                                                         <h4>Post Comment</h4>
                                                                         <div class="row">
                                                                             <div class="col-md-12 form-group">
-                                                                                <input name="name" wire:model="user_name" type="text" class="form-control" placeholder="Your Name*">
+                                                                                <input name="name" wire:model="replyUser_name" type="text" class="form-control" placeholder="Your Name*">
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="col form-group">
-                                                                                <textarea name="comment" wire:model="body" class="form-control" placeholder="Your Comment*"></textarea>
+                                                                                <textarea name="comment" wire:model="replyBody" class="form-control" placeholder="Your Comment*"></textarea>
                                                                             </div>
                                                                         </div>
                                                                         <div class="text-center">
@@ -98,13 +98,6 @@
                                             }
                                         }
                                     @endphp
-
-
-
-
-
-
-
                                     @foreach ($comments as $comment)
                                         <div id="comment-1" class="comment">
                                             <div class="d-flex">
