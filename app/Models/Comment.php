@@ -12,4 +12,13 @@ class Comment extends Model
         'user_name',
         'body'
     ];
+
+    public function replies(){
+        return $this->hasMany(Comment::class,'reply_to');
+    }
+
+    public function parent(){
+        return $this->belongsTo(Comment::class,'reply_to');
+    }
+
 }

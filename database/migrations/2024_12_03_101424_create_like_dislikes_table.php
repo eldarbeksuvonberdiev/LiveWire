@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('like_dislikes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('post_id')->constrained('posts')->cascadeOnDelete();
             $table->string('user_ip',25);
             $table->integer('value');
             $table->timestamps();

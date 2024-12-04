@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('post_id')->constrained('posts')->cascadeOnDelete();
             $table->integer('reply_to')->default(0);
             $table->string('user_name');
-            $table->string('body');
+            $table->text('body');
             $table->timestamps();
         });
     }

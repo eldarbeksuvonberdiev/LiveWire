@@ -10,27 +10,29 @@
 
                         <div class="col-lg-8">
 
-                            <!-- Blog Details Section -->
                             <section id="blog-details" class="blog-details section">
+                                <button class="btn btn-danger mb-3" wire:click="back">Back</button>
                                 <div class="container">
 
                                     <article class="article">
 
                                         <div class="post-img">
-                                            <img src="assets/img/blog/1.jpg" alt="" class="img-fluid">
+                                            <img src="{{ asset('assets/img/blog/1.jpg') }}" alt=""
+                                                class="img-fluid">
                                         </div>
 
                                         <h2 class="title">{{ $post->title }}</h2>
 
                                         <div class="meta-top">
                                             <ul>
-                                                <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a
-                                                        href="blog-details.html">John Doe</a></li>
-                                                <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a
-                                                        href="blog-details.html"><time datetime="2020-01-01">Jan 1,
-                                                            2022</time></a></li>
-                                                <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a
-                                                        href="blog-details.html">12 Comments</a></li>
+                                                <li><a href="#" wire:click="likePost"><i
+                                                            class="bi bi-hand-thumbs-up{{ !empty($likedBy) ? '-fill' : '' }}"></i></a>
+                                                </li>
+                                                <li><a href="#" wire:click="dislikePost"><i
+                                                            class="bi bi-hand-thumbs-down{{ !empty($disLikedBy) ? '-fill' : '' }}"></i></a>
+                                                </li>
+                                                <li><a href="#" style="text-decoration:none;"><i
+                                                            class="bi bi-eye"></i>{{ $views }}</a></li>
                                             </ul>
                                         </div><!-- End meta top -->
 
@@ -49,43 +51,123 @@
 
                                 <div class="container">
 
-                                    <h4 class="comments-count">8 Comments</h4>
+                                    <h4 class="comments-count">
+                                        {{ $commentCount == 0 ? 'No comments here yet' : $commentCount }}</h4>
 
-                                    <div id="comment-1" class="comment">
-                                        <div class="d-flex">
-                                            <div class="comment-img"><img src="assets/img/blog/comments-1.jpg"
-                                                    alt=""></div>
-                                            <div>
-                                                <h5><a href="">Georgia Reader</a> <a href="#"
-                                                        class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>
-                                                <time datetime="2020-01-01">01 Jan,2022</time>
-                                                <p>
-                                                    Et rerum totam nisi. Molestiae vel quam dolorum vel voluptatem et
-                                                    et. Est ad aut sapiente quis molestiae est qui cum soluta.
-                                                    Vero aut rerum vel. Rerum quos laboriosam placeat ex qui. Sint qui
-                                                    facilis et.
-                                                </p>
+                                    @php
+                                        function replies($comment)
+                                        {
+                                            if ($comment->reply && count($comment->reply) > 0) {
+                                                foreach ($comment->reply as $reply) {
+                                                    echo '<div class="d-flex" style="margin-left: 20px;">';
+                                                    echo '<div class="comment-img"><img src="assets/img/blog/comments-3.jpg" alt=""></div>';
+                                                    echo '<div>';
+                                                    echo '<h5><a href="#">' .
+                                                        htmlspecialchars($reply->author) .
+                                                        '</a> <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>';
+                                                    echo '<time datetime="2020-01-01">' .
+                                                        htmlspecialchars($reply->created_at) .
+                                                        '</time>';
+                                                    echo '<p>' . htmlspecialchars($reply->content) . '</p>';
+
+                                                    if ($reply->id == $replyTo) {
+                                                        echo '
+                                                                <div class="container">
+                                                                    <form action="" wire:submit.prevent="commentToPost">
+                                                                        <h4>Post Comment</h4>
+                                                                        <div class="row">
+                                                                            <div class="col-md-12 form-group">
+                                                                                <input name="name" wire:model="user_name" type="text" class="form-control" placeholder="Your Name*">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col form-group">
+                                                                                <textarea name="comment" wire:model="body" class="form-control" placeholder="Your Comment*"></textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="text-center">
+                                                                            <button type="submit" class="btn btn-primary">Post Comment</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>';
+                                                    }
+                                                    replies($reply);
+                                                    echo '</div>';
+                                                    echo '</div>';
+                                                }
+                                            }
+                                        }
+                                    @endphp
+
+
+
+
+
+
+
+                                    @foreach ($comments as $comment)
+                                        <div id="comment-1" class="comment">
+                                            <div class="d-flex">
+                                                <div class="comment-img"><img src="assets/img/blog/comments-1.jpg"
+                                                        alt=""></div>
+                                                <div>
+                                                    <h5><a href="#">{{ $comment->user_name }}</a> <a
+                                                            href="#" class="reply"
+                                                            wire:click="reply({{ $comment->id }})"><i
+                                                                class="bi bi-reply-fill"></i> Reply</a>
+                                                    </h5>
+                                                    <time datetime="2020-01-01">{{ $comment->created_at }}</time>
+                                                    <p>
+                                                        {{ $comment->body }}
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        @if ($replyTo == $comment->id)
+                                            <div class="container">
+
+                                                <form action="#" wire:submit.prevent="replyTo">
+
+                                                    <h4>Comment Reply</h4>
+                                                    <div class="row">
+                                                        <div class="col-md-12 form-group mt-2 mb-2">
+                                                            <input name="name" wire:model="replyUser_name"
+                                                                type="text" class="form-control"
+                                                                placeholder="Your Name*">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col form-group mt-2 mb-2">
+                                                            <textarea name="comment" wire:model="replyBody" class="form-control" placeholder="Your Comment*"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <button type="submit" class="btn btn-primary">Reply</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        @endif
+                                        @if (optional($comment->reply)->count() > 0)
+                                            @php replies($comment); @endphp
+                                        @endif
+                                    @endforeach
                                 </div>
-                            </section><!-- /Blog Comments Section -->
-                            <!-- Comment Form Section -->
+                            </section>
                             <section id="comment-form" class="comment-form section">
                                 <div class="container">
 
-                                    <form action="">
+                                    <form action="" wire:submit.prevent="commentToPost">
 
                                         <h4>Post Comment</h4>
                                         <div class="row">
                                             <div class="col-md-12 form-group">
-                                                <input name="name" type="text" class="form-control"
-                                                    placeholder="Your Name*">
+                                                <input name="name" wire:model="user_name" type="text"
+                                                    class="form-control" placeholder="Your Name*">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col form-group">
-                                                <textarea name="comment" class="form-control" placeholder="Your Comment*"></textarea>
+                                                <textarea name="comment" wire:model="body" class="form-control" placeholder="Your Comment*"></textarea>
                                             </div>
                                         </div>
 
@@ -96,7 +178,7 @@
                                     </form>
 
                                 </div>
-                            </section><!-- /Comment Form Section -->
+                            </section>
 
                         </div>
 
