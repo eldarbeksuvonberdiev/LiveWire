@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\LikeDislike;
 use App\Models\Post;
 use App\Models\View;
+use Illuminate\Validation\Rules\Exists;
 use Livewire\Component;
 
 class UserPosts extends Component
@@ -31,7 +32,11 @@ class UserPosts extends Component
         $this->postsTo = Post::orderBy('id','desc')->limit(6)->get();
         $this->post = $post;
         $this->selectedPost = $post->id;
-        View::create(['post_id' => $this->selectedPost,'user_ip' => request()->ip()]);
+
+        if (empty(View::where('user_ip', request()->ip()))) {
+            View::create(['post_id' => $this->selectedPost,'user_ip' => request()->ip()]);
+        }
+        
         $this->likedBy = LikeDislike::where('post_id', $this->selectedPost)->where('user_ip', request()->ip())->where('value', 1)->first();
         $this->disLikedBy = LikeDislike::where('post_id', $this->selectedPost)->where('user_ip', request()->ip())->where('value', 0)->first();
         $this->views = View::where('post_id', $this->selectedPost)->count();
@@ -41,7 +46,7 @@ class UserPosts extends Component
 
     public function back()
     {
-        $this->reset(['posts','post', 'selectedPost', 'likedBy', 'disLikedBy', 'views', 'comments', 'commentCount']);
+        $this->reset(['postsTo','post', 'selectedPost', 'likedBy', 'disLikedBy', 'views', 'comments', 'commentCount']);
     }
 
     public function likePost()

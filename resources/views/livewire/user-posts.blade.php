@@ -186,7 +186,6 @@
 
                             <div class="widgets-container">
 
-                                <!-- Search Widget -->
                                 <div class="search-widget widget-item">
 
                                     <h3 class="widget-title">Search</h3>
@@ -195,9 +194,8 @@
                                         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
                                     </form>
 
-                                </div><!--/Search Widget -->
+                                </div>
 
-                                <!-- Categories Widget -->
                                 <div class="categories-widget widget-item">
 
                                     <h3 class="widget-title">Categories</h3>
@@ -207,9 +205,8 @@
                                         @endforeach
                                     </ul>
 
-                                </div><!--/Categories Widget -->
+                                </div>
 
-                                <!-- Recent Posts Widget -->
                                 <div class="recent-posts-widget widget-item">
 
                                     <h3 class="widget-title">Recent Posts</h3>
@@ -228,9 +225,7 @@
                                 </div>
 
                             </div>
-
                         </div>
-
                     </div>
                 </div>
 
