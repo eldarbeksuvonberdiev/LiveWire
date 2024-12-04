@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Category;
 use App\Models\Comment;
 use App\Models\LikeDislike;
 use App\Models\Post;
@@ -12,7 +13,7 @@ class UserPosts extends Component
 {
     public $posts, $post, $selectedPost = false, $views, $likes, $dislikes, $like, $dislike, $likedBy, $disLikedBy, $comments, $commentCount;
 
-    public $user_name, $body, $replyTo, $replyUser_name, $replyBody;
+    public $user_name, $body, $replyTo, $replyUser_name, $replyBody,$categories,$postsTo;
 
     public function mount()
     {
@@ -25,7 +26,9 @@ class UserPosts extends Component
     }
 
     public function showPost(Post $post)
-    {
+    {   
+        $this->categories = Category::orderBy('id','desc')->limit(8)->get();
+        $this->postsTo = Post::orderBy('id','desc')->limit(6)->get();
         $this->post = $post;
         $this->selectedPost = $post->id;
         View::create(['post_id' => $this->selectedPost,'user_ip' => request()->ip()]);
@@ -38,7 +41,7 @@ class UserPosts extends Component
 
     public function back()
     {
-        $this->reset(['post', 'selectedPost', 'likedBy', 'disLikedBy', 'views', 'comments', 'commentCount']);
+        $this->reset(['posts','post', 'selectedPost', 'likedBy', 'disLikedBy', 'views', 'comments', 'commentCount']);
     }
 
     public function likePost()
@@ -91,7 +94,6 @@ class UserPosts extends Component
 
     public function commentToPost()
     {
-        // dd($this->user_name,$this->body);
 
         Comment::create([
             'post_id' => $this->selectedPost,
