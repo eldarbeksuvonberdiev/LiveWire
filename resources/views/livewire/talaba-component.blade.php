@@ -3,9 +3,9 @@
         <div class="row">
             <div class="col-12">
                 <h1>Attendance</h1>
-                <h4 class="text-primary m-2">{{ $date->format('F Y') }}</h4>
-
-                <table class="table table-striped table-dark">
+                <input type="date" class="form-control" name="" wire:change="changeDate($event.target.value)">
+                <h4 class="text-primary mt-2 mb-2">{{ $date->format('F Y') }}</h4>
+                <table class="table table-striped table-dark table-bordered">
                     <thead>
                         <tr>
                             <th>#</th>

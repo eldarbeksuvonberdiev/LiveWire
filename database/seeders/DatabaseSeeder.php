@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Group;
+use App\Models\Talaba;
 use App\Models\Task;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -30,12 +31,20 @@ class DatabaseSeeder extends Seeder
         //     ]); 
         // }
 
-        for ($i=1; $i < 20; $i++) { 
-            Task::create([
+        // for ($i=1; $i < 20; $i++) { 
+        //     Task::create([
+        //         'name' => fake()->name(),
+        //         'content' => fake()->text(30),
+        //         'status' => rand(1,4)
+        //     ]);
+        // }
+    
+        for ($i=0; $i <= 10; $i++) { 
+            Talaba::create([
                 'name' => fake()->name(),
-                'content' => fake()->text(30),
-                'status' => rand(1,4)
+                'order' => rand(1,10),
             ]);
         }
+
     }
 }
