@@ -41,7 +41,7 @@
             <nav id="navmenu" class="navmenu">
                 <ul>
                     <li><a href="/category">Category</a></li>
-                    <li><a href="/post">Admin Post</a></li>
+                    <li><a href="/">Admin Post</a></li>
                     <li><a href="/user-post">User Posts</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>

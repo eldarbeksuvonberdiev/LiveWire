@@ -7,20 +7,24 @@
     <button class="btn btn-primary mb-2 mt-2" wire:click="changeCreate">{{ $createForm ? 'Back' : 'Create' }}</button>
     @if ($createForm)
         <form wire:submit.prevent="store">
-            <mb-3>
-                <select class="form-select" wire:model="category" aria-label="Default select example">
-                    <option value=""></option>
+            <div class="mb-3">
+                <select class="form-select" wire:model="category_id">
+                    <option value="">Select Category</option> <!-- Default tanlov -->
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
                 </select>
-            </mb-3>
-            <input type="text" class="form-control mt-2" wire:model="title" placeholder="Title">
+                @error('category_id')
+                    <span>{{ $message }}</span>
+                @enderror
+            </div>
+
+            <input type="text" class="form-control mt-2" wire:model.blur="title" placeholder="Title">
             @error('title')
                 <span>{{ $message }}</span>
             @enderror
 
-            <textarea wire:model="content" class="form-control mt-2" placeholder="Content"></textarea>
+            <textarea wire:model.blur="content" class="form-control mt-2" placeholder="Content"></textarea>
             @error('content')
                 <span>{{ $message }}</span>
             @enderror
@@ -82,7 +86,8 @@
                                 @enderror
                             </td>
                             <td>
-                                <button type="submit" wire:click="update({{ $post->id }})" class="btn btn-primary mt-2">Update</button>
+                                <button type="submit" wire:click="update({{ $post->id }})"
+                                    class="btn btn-primary mt-2">Update</button>
                             </td>
                         </tr>
                     @else

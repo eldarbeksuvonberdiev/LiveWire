@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-12">
                 <h1>Attendance</h1>
-                <input type="date" class="form-control" name="" wire:change="changeDate($event.target.value)">
+                <input type="date" class="form-control" autofocus name="" wire:change="changeDate($event.target.value)">
                 <h4 class="text-primary mt-2 mb-2">{{ $date->format('F Y') }}</h4>
                 <table class="table table-striped table-dark table-bordered">
                     <thead>
@@ -41,6 +41,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                <button class="btn btn-primary mb-5" wire:click="">Create</button>
             </div>
         </div>
     </div>

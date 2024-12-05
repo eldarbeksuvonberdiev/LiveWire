@@ -118,6 +118,6 @@ class UserPosts extends Component
 
     public function replyTo()
     {
-        dd($this->replyUser_name, $this->replyBody);
+        dd(123);
     }
 }

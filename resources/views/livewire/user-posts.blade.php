@@ -73,7 +73,7 @@
                                                     if ($reply->id == $replyTo) {
                                                         echo '
                                                                 <div class="container">
-                                                                    <form action="" wire:submit.prevent="commentToPost">
+                                                                    <form action="" wire:submit.prevent="replyTo">
                                                                         <h4>Post Comment</h4>
                                                                         <div class="row">
                                                                             <div class="col-md-12 form-group">
@@ -118,8 +118,7 @@
                                         </div>
                                         @if ($replyTo == $comment->id)
                                             <div class="container">
-
-                                                <form action="#" wire:submit.prevent="replyTo">
+                                                <form action="" wire:submit.prevent="replyTo">
 
                                                     <h4>Comment Reply</h4>
                                                     <div class="row">
@@ -135,7 +134,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="text-center">
-                                                        <button type="submit" class="btn btn-primary">Reply</button>
+                                                        <button class="btn btn-primary">Reply</button>
                                                     </div>
                                                 </form>
                                             </div>
