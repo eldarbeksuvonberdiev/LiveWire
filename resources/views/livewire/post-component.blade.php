@@ -8,8 +8,8 @@
     @if ($createForm)
         <form wire:submit.prevent="store">
             <div class="mb-3">
-                <select class="form-select" wire:model="category_id">
-                    <option value="">Select Category</option> <!-- Default tanlov -->
+                <select class="form-select" wire:model.blur="category_id">
+                    <option value="">Select Category</option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
@@ -61,7 +61,7 @@
                         <tr>
                             <td></td>
                             <td>
-                                <mb-3>
+                                <div class="mb-3">
                                     <select class="form-select" wire:model="editCategory"
                                         aria-label="Default select example">
                                         @foreach ($categories as $category)
@@ -70,17 +70,17 @@
                                                 {{ $category->name }}</option>
                                         @endforeach
                                     </select>
-                                </mb-3>
+                                </div>
                             </td>
                             <td>
-                                <input type="text" class="form-control mt-2" wire:model="editTitle"
+                                <input type="text" class="form-control mt-2" wire:model.blur="editTitle"
                                     placeholder="Title">
                                 @error('title')
                                     <span>{{ $message }}</span>
                                 @enderror
                             </td>
                             <td>
-                                <textarea wire:model="editContent" class="form-control mt-2" placeholder="Content"></textarea>
+                                <textarea wire:model.blur="editContent" class="form-control mt-2" placeholder="Content"></textarea>
                                 @error('content')
                                     <span>{{ $message }}</span>
                                 @enderror

@@ -8,7 +8,8 @@ use Livewire\Component;
 
 class PostComponent extends Component
 {
-    public $posts, $post, $title, $content, $post_id, $category_id, $categories, $createForm = false, $searchTitle, $searchContent, $editForm = false, $editTitle, $editContent, $editCategory_id;
+    public $posts, $post, $title, $content, $post_id, $category_id, $categories, $createForm = false;
+    public $searchTitle, $searchContent, $editForm = false, $editTitle, $editContent, $editCategory_id;
     public $isUpdate = false;
 
     public $rules = [
